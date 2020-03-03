@@ -107,7 +107,7 @@ li {
   Header styling starts here
 =================================*/
 
-header {
+header .wrapper {
   width: 100%;
   padding: 10px 0;
   color: #fff;
@@ -129,12 +129,91 @@ header {
   main styling starts here
 =================================*/
 
+form {
+  margin: 30px;
+  border: 2px solid cadetblue;
+  display: flex;
+  flex-direction: column;
+  text-transform: capitalize;
+  justify-content: center;
+  align-items: center;
+  border-radius: 255px;
+}
 
+.form-group {
+  width: 30%;
+  margin: 10px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
 
+.form-group label {
+  color: darkcyan;
+  display: flex;
+  justify-content: center;
+  letter-spacing: 1px;
+  align-items: center;
+}
 
+input::before {
+  content: '';
+  position: absolute;
+  background: #2b2e37;
+  color: #fff;
+  top: 0;
+  width: 18px;
+  float: left;
+  text-indent: 0;
+  display: block;
+  height: 10px;
+}
 
+.form-group input{
+  padding: 10px 2%;
+  box-sizing: border-box;
+  font-size: 16px;
+  border: 1px solid #dcdcdc;
+  text-transform: capitalize;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 13px;
+  border-left: hidden;
+  border-right: hidden;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  outline: none;
+}
+.form-control {
+  width: 100%;
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+}
 
+#submit,
+#cancel {
+  padding: 10px 4%;
+  margin: 10px 4%;
+  background: darkslategray;
+  border: none;
+  font-size: 16px;
+  border-radius: 20px;
+  box-shadow: 5px 5px darkcyan;
+  cursor: pointer;
+  color: whitesmoke;
+  font-family: sans-serif;
+  position: relative;
+  display: inline-block;
+  text-transform: uppercase;
+  text-align: center;
+}
 
+.invalid {
+  font-size: 12px;
+  text-transform: capitalize;
+  color: rgb(223, 37, 12);
+  visibility: hidden;
+}
 
 /*=================================
   main styling ends here
@@ -144,7 +223,16 @@ header {
   footer styling starts here
 =================================*/ 
 
-
+footer {
+  width: 100%;
+  padding: 10px 0;
+  background-color: #2b2e37;
+  color: #fff;
+  font-size: 40px;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+}
 
 
 
