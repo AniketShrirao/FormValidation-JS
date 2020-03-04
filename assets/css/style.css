@@ -138,6 +138,7 @@ form {
   justify-content: center;
   align-items: center;
   border-radius: 255px;
+  position: relative;
 }
 
 .form-group {
@@ -146,6 +147,7 @@ form {
   padding: 10px;
   display: flex;
   justify-content: space-between;
+  position: relative;
 }
 
 .form-group label {
@@ -208,11 +210,30 @@ input::before {
   text-align: center;
 }
 
-.invalid {
-  font-size: 12px;
-  text-transform: capitalize;
-  color: rgb(223, 37, 12);
+.form-group span {
+  width: 100%;
+  display: none;
+  color: indianred;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  position: absolute;
+  top: 102%;
+  text-align: center;
   visibility: hidden;
+}
+
+.form-control span {
+  width: 20%;
+  padding: 10px;
+  display: none;
+  color: indianred;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  position: absolute;
+  top: 10%;
+  right: 10%;
 }
 
 /*=================================
@@ -233,10 +254,6 @@ footer {
   display: flex;
   justify-content: center;
 }
-
-
-
-
 
  /*=================================
   footer styling ends here
