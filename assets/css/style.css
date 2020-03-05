@@ -210,7 +210,7 @@ input::before {
   text-align: center;
 }
 
-.form-group span {
+.error{
   width: 470px;
   display: none;
   color: indianred;
@@ -223,10 +223,9 @@ input::before {
   text-align: center;
 }
 
-.form-control span {
+.form-control .error {
   width: 20%;
   padding: 10px;
-  display: none;
   color: indianred;
   font-size: 13px;
   font-weight: 600;
