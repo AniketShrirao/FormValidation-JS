@@ -211,16 +211,16 @@ input::before {
 }
 
 .form-group span {
-  width: 100%;
+  width: 470px;
   display: none;
   color: indianred;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: 1px;
   position: absolute;
-  top: 102%;
+  padding: 4px;
+  top: 95%;
   text-align: center;
-  visibility: hidden;
 }
 
 .form-control span {
@@ -235,6 +235,8 @@ input::before {
   top: 10%;
   right: 10%;
 }
+
+.visible { display: inline-block; }
 
 /*=================================
   main styling ends here
@@ -258,11 +260,3 @@ footer {
  /*=================================
   footer styling ends here
 =================================*/ 
-
-/*media query starts*/
-/*media query for 995px starts here*/
-@media only screen and (max-width: 995px) {
-
-
-
-}  
