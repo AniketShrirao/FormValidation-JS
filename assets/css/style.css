@@ -118,9 +118,6 @@ header .wrapper {
   justify-content: center;
 }
 
-
-
-
 /*=================================
   Header styling ends here
 =================================*/  
@@ -174,9 +171,8 @@ input::before {
 .form-group input{
   padding: 10px 2%;
   box-sizing: border-box;
-  font-size: 16px;
+  font-size: 14px;
   border: 1px solid #dcdcdc;
-  text-transform: capitalize;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 13px;
   border-left: hidden;
@@ -210,32 +206,49 @@ input::before {
   text-align: center;
 }
 
-.error{
-  width: 470px;
+.helperMessage,
+.error,
+.success{
+  width: 50%;
   display: none;
-  color: indianred;
-  font-size: 12px;
   font-weight: 600;
   letter-spacing: 1px;
   position: absolute;
-  padding: 4px;
-  top: 95%;
+  right: -60%;
   text-align: center;
+  background: #ededed;
+  padding: 10px;
+  border-radius: 2px;
+  margin-left: 10px;
+  font-size: 12px;
+  box-shadow: 0px 1px 2px 0px rgba(0,0,0, 0.25);
 }
 
-.form-control .error {
-  width: 20%;
-  padding: 10px;
+.error { 
+  display: inline-block; 
   color: indianred;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  position: absolute;
-  top: 10%;
-  right: 10%;
+ }
+
+.success { 
+  display: inline-block;
+  color: green;
+ }
+
+.error::before {
+  content: "";
+  width: 0; 
+  height: 0;
+  position: relative;
+    top: -4px;
+    left: -49%;
+  font-size: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent; 
+  border-right:10px solid #ededed;
 }
 
 .visible { display: inline-block; }
+.none { display: none;}
 
 /*=================================
   main styling ends here
