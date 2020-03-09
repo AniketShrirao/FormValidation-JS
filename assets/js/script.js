@@ -1,141 +1,160 @@
-/* Author: Aniket*/
+// /* Author: Aniket*/
+// // Selecting Every Input field
+var inputs = [
+  firstName = document.querySelector('#firstName'),
+  lastName = document.querySelector('#lastName'),
+  email = document.querySelector('#email'),
+  phoneNo = document.querySelector('#phoneNo'),
+  password = document.querySelector('#password'),
+  confirmPassword = document.querySelector('#confirmPassword'), 
+];
+// Retrieving Values of every input field
+var values = {
+  fname : firstName.value,
+  lname : lastName.value,
+  emailId : email.value,
+  phoneNumber : phoneNo.value,
+  passwordVal : password.value,
+  confirmPasswordVal : confirmPassword.value
+};
+// Regex for every input fields
+var Regex = [
+  firstNameRegex = /([a-zA-Z]){2,20}$/,
+  lastNameRegex = /([a-zA-Z]){2,20}$/,
+  emailRegex = /^([0-9a-zA-Z\_\.\-]+)@([0-9a-zA-Z\_\.\-]+)\.([a-zA-Z]+)$/,
+  phoneNoRegex = /^\d{10}$/,
+  passwordRegex = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8})/,
+  confirmPasswordRegex = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8})/
+];
+
+// selecting form element
+var form = document.querySelector('form');
+
 // Submit Button assigned a click Function
 var Button = document.querySelector('#submit');
   Button.addEventListener('click',function(e){
     e.preventDefault();
-    getData();
+    validateOnSubmit(e);
   });
 
 // reset button assigned a click function 
 var Reset = document.querySelector('#cancel');
 Reset.addEventListener('click',reset);
 
-// get form element
-var form = document.querySelector('form');
-
-// if every input is empty make error gone
-var inputs = document.querySelectorAll('.form-group input');
-  inputs.forEach(function(input) {
-    input.addEventListener("keyup", function(){
-      if(input.value == ""){
-        var span = input.nextElementSibling;
-        if(span.classList.contains('visible')) {
-        span.classList.remove('visible');
-        return false;
-        }
+// Keyup event on each input to check if it is valid
+inputs.forEach(function (input) {
+  var index = inputs.indexOf(input);
+  if (input.id !== "confirmPassword") {
+    input.addEventListener("keyup", function () {
+      validate(Regex[index], this);
+    });
+  }
+  else {
+    //  special keyup event on confirm password to check if it matches with password field
+    input.addEventListener("keyup", function (e) {
+      if (inputs[4].value === inputs[5].value) {
+        validate(Regex[index], this);
+      } else { 
+        input.nextElementSibling.classList = "helperMessage error"; 
+        errors(input,input.nextElementSibling);
       }
-  });
+    });
+  }
 });
 
-// Declaration of getData function
-//  retrieving form data on submit
-function getData() {
-  // Selecting Every Input field
-  var inputs = {
-    firstName : document.querySelector('#firstName'),
-    lastName : document.querySelector('#lastName'),
-    email : document.querySelector('#email'),
-    phoneNo : document.querySelector('#phoneNo'),
-    password : document.querySelector('#password'),
-    confirmPassword : document.querySelector('#confirmPassword'), 
-  };
-  // Retrieving Values of every input field
-  var values = {
-    fname : firstName.value,
-    lname : lastName.value,
-    emailId : email.value,
-    phoneNumber : phoneNo.value,
-    passwordVal : password.value,
-    confirmPasswordVal : confirmPassword.value
-  };
-  // Calling Validation function 
-  Validate(inputs,values);
-}
-// Declaration of error Function
-  function error(spanError,inputfield) {
-    var span = inputfield.nextElementSibling;
-   span.innerText = spanError;
-    if(span.classList.contains('visible')) {
-    span.classList.remove('visible');
-    return false;
-    }
-  span.classList.add('visible');
+// Defiination of Validate Function on Keyup
+function validate(RegularExpression, input) {
+  if(input.value == ""){
+    input.nextElementSibling.classList = "helperMessage";
   }
-// Declaration of Validation Function
-  function Validate(inputs,values) {
-    // if both password fields doesn't match
-    if(values.passwordVal !== values.confirmPasswordVal) {
-      error("Password & Confirm Password Field must match.",inputs.confirmPassword);
-      return false;
-    } 
-    // creating Regex Object
-  var RegObject = [
-    fnameRegex = /^[A-Za-z]{2,20}$/i,
-    lnameRegex = /^[A-Za-z]{2,20}$/i,
-    emailIdRegex = /^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,4})?$/,
-    phoneNoRegex = /^\d{10}$/,
-    passwordRegex = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8})/
-  ];
-  // Calling Validity Fucntion for every inputs
-  var firstNamevalidity = checkFirstName(values.fname,RegObject,inputs.firstName);
-  var lastNameValidity =  checkLastName(values.lname,RegObject,inputs.lastName);
-  var emailValidity =  checkEmail(values.emailId,RegObject,inputs.email);
-  var phoneNoValidity =  checkPhoneNo(values.phoneNumber,RegObject,inputs.phoneNo);
-  var passwordValidity = checkPassword(values.passwordVal,RegObject,inputs.password);
-  // if form submitted successfully
-  if(firstNamevalidity && lastNameValidity && emailValidity && phoneNoValidity && passwordValidity) {
-    var inputs = document.querySelectorAll('.form-group input');
-    inputs.forEach(function(input) {
-        if(input.value == ""){
-          var span = input.nextElementSibling;
-        span.style.display = "none";
-        }
+  else if (RegularExpression.test(input.value)) {
+    input.nextElementSibling.classList = "helperMessage success";
+    input.nextElementSibling.innerText = "yay ! you are Correct!";
+  } else {
+    input.nextElementSibling.classList = "helperMessage error";
+    errors(input,input.nextElementSibling);
+  }
+}
+
+// Defiination of Validate Function on submitButton
+function validateOnSubmit(e) {
+  var allEmpty = false;
+  inputs.forEach(function(input){
+    if(input.value == ""){
+      allEmpty = true;
+    };
+  });
+  // If every fields are empty show error
+  if(allEmpty) {
+    e.preventDefault();
+    inputs.forEach(function(input){
+      if(input.value == ""){
+        input.nextElementSibling.classList.remove('none');
+        input.nextElementSibling.classList.add('error');
+        errors(input,input.nextElementSibling);
+      };
     });
-    alert("your Form has been submitted Successfully");
-    form.reset();
-  }
-}
-
-// Validation function of every inputs
-function checkFirstName(fname,RegObject,firstName) {
-  var isValid = RegObject[0].test(fname);
-  if(!isValid) {
-    error("FirstName Must Contains minimum 2 characters and only Alphabets.",firstName);
-  } else { return true; }
-}
-function checkLastName(lname,RegObject,lastName) {
-  var isValid = RegObject[1].test(lname);
-  if(!isValid) {
-    error("LastName Must Contains minimum 2 characters and only Alphabets.",lastName);
-  } else { return true; }
-}
-function checkEmail(emailId,RegObject,email) {
-  var isValid = RegObject[2].test(emailId);
-  if(!isValid) {
-    error("Please Enter valid Email Id.",email);
-  } else { return true; }
-}
-function checkPhoneNo(phoneNumber,RegObject,phoneNo) {
-  var isValid = RegObject[3].test(phoneNumber);
-  if(!isValid) {
-    error("Please Enter Valid Phone Number.",phoneNo);
-  } else { return true; }
-}
-function checkPassword(passwordVal,RegObject,password) {
-  var isValid = RegObject[4].test(passwordVal);
-  if(!isValid) {
-    error("Password must Contain atleast one Special Character, an uppercase letter and a Number.",password);
-  } else { return true; }
-}
-
-// Declaration of Reset Function
-function reset(){
-  for(var everyChild in form.children) {
-    if(everyChild === "length") { break; }
-    var span = form.children[everyChild].children[2];
-   if(span.classList.contains('visible')) {
-    span.classList.remove('visible');
     return false;
-    }
   }
+  // If every fields are invalid show errors message
+  var helperSpans = document.querySelectorAll('.helperMessage');
+  var allCorrect = false;
+  helperSpans.forEach(function(span){
+    var AllErrorify = span.classList.contains('error');
+    if(!AllErrorify) {
+     allCorrect = true;
+     span.classList.remove('success');
+    }
+  });
+    // If every fields are correct alert success message
+  if(allCorrect) {
+    form.reset();
+    alert("your Data is submitted successfully");
+  }
+}
+
+// Error function Declaration for every set of errors
+function errors(input,span) {
+  if(input.value == "") {
+    span.innerText = "Please fill the empty field!";  
+    return;   
+  }
+switch (input.id) {
+  case "firstName":
+    span.innerText = "Must Contains Only Alphabets.";   
+    break;
+  case  "lastName":
+    span.innerText = "Must Contains Only Alphabets.";   
+    break;
+  case "email":
+    span.innerText = "Entered Email is Invalid.";   
+    break;
+  case "phoneNo":
+    span.innerText = "Must Contains Only Digits and minimum of 10.";   
+    break;
+  case "password":
+    span.innerText = "Must Contains One Alphabet(upperCase & LowerCase each) and a Number and Special Character.";   
+    break;
+  case "confirmPassword":
+    span.innerText = "confirm password & password fields must match";   
+    break;
+  default:
+    break;
+  }
+}
+
+// Declaration of Reset Function make whole form reset
+function reset(){
+  inputs.forEach(function(input){
+    var HelperClass = input.nextElementSibling.classList.contains("helperMessage");
+    var successClass = input.nextElementSibling.classList.contains("success");
+    var errorClass = input.nextElementSibling.classList.contains("error");
+    if(input.value == ""){
+      input.nextElementSibling.classList = "helperMessage none";
+      input.nextElementSibling.innerText = "";
+    } else if(HelperClass || successClass || errorClass ) {
+      input.nextElementSibling.classList = "helperMessage  none";
+      input.nextElementSibling.innerText = "";
+    };
+  });
 };
